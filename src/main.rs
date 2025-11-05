@@ -3,7 +3,7 @@ use std::cell::RefCell;
 
 struct Cell {
     state: bool,
-    neighbors: Vec<Weak<RefCell<Cell>>>
+    neighbors: Option<Vec<Weak<RefCell<Cell>>>>
 }
 
 fn main() {
