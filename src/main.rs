@@ -1,10 +1,9 @@
-
-use std::rc::{Rc, Weak};
 use std::cell::RefCell;
+use std::rc::{Rc, Weak};
 
 struct Cell {
     state: bool,
-    neighbors: Option<Vec<Weak<RefCell<Cell>>>>
+    neighbors: Option<Vec<Weak<RefCell<Cell>>>>,
 }
 
 fn main() {
