@@ -17,9 +17,9 @@ fn main() {
         world.push(Rc::new(RefCell::new(cell)));
     }
 
-    for cell_rc in &world {
-        let mut cell = cell_rc.borrow_mut();
-        cell.neighbors = Some(vec![Rc::downgrade(&world[0]), Rc::downgrade(&world[1])]);
+    for i in 0..world.len() {
+        let mut cell = world[i].borrow_mut();
+        cell.neighbors = Some(vec![Rc::downgrade(&world[(i + 1) % world.len()])]);
     }
 
     println!("Hello, world!");
