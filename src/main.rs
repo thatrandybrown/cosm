@@ -13,7 +13,7 @@ fn main() {
             state: false,
             neighbors: None,
         };
-        world.push(cell);
+        world.push(Rc::new(RefCell::new(cell)));
     }
     println!("Hello, world!");
 }
