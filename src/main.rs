@@ -18,7 +18,10 @@ fn main() {
 
     for i in 0..world.len() {
         let mut cell = world[i].borrow_mut();
-        cell.neighbors = Some(vec![Rc::downgrade(&world[(i + 1) % world.len()])]);
+        cell.neighbors = Some(vec![
+            Rc::downgrade(&world[(i + 1) % world.len()]),
+            Rc::downgrade(&world[(i + world.len() - 1) % world.len()]),
+        ]);
     }
 
     println!("Hello, world!");
