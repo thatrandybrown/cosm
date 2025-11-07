@@ -26,6 +26,7 @@ fn main() {
         ]);
     }
 
+    let mut next = vec![];
     for cell in &world {
         let score = cell
             .borrow()
@@ -37,6 +38,7 @@ fn main() {
             .filter(|rc| rc.borrow().state)
             .count();
         println!("Score: {}", score);
+        next.push(score == 2 || (score == 1 && cell.borrow().state));
     }
 
     println!("Hello, world!");
