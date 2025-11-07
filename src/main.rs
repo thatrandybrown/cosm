@@ -22,6 +22,7 @@ fn main() {
             Rc::downgrade(&world[(i + 1) % world.len()]),
             Rc::downgrade(&world[(i + 2) % world.len()]),
             Rc::downgrade(&world[(i + world.len() - 1) % world.len()]),
+            Rc::downgrade(&world[(i + world.len() - 2) % world.len()]),
         ]);
     }
 
