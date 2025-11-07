@@ -20,6 +20,7 @@ fn main() {
         let mut cell = world[i].borrow_mut();
         cell.neighbors = Some(vec![
             Rc::downgrade(&world[(i + 1) % world.len()]),
+            Rc::downgrade(&world[(i + 2) % world.len()]),
             Rc::downgrade(&world[(i + world.len() - 1) % world.len()]),
         ]);
     }
