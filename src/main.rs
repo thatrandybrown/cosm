@@ -26,5 +26,18 @@ fn main() {
         ]);
     }
 
+    for cell in &world {
+        let score = cell
+            .borrow()
+            .neighbors
+            .as_deref()
+            .unwrap_or(&[])
+            .iter()
+            .filter_map(|weak| weak.upgrade())
+            .filter(|rc| rc.borrow().state)
+            .count();
+        println!("Score: {}", score);
+    }
+
     println!("Hello, world!");
 }
