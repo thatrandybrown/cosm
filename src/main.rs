@@ -41,5 +41,10 @@ fn main() {
         next.push(score == 2 || (score == 1 && cell.borrow().state));
     }
 
+    for i in 0..world.len() {
+        let mut cell = world[i].borrow_mut();
+        cell.state = next[i];
+    }
+
     println!("Hello, world!");
 }
