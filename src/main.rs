@@ -26,25 +26,28 @@ fn main() {
         ]);
     }
 
-    let mut next = vec![];
-    for cell in &world {
-        let score = cell
-            .borrow()
-            .neighbors
-            .as_deref()
-            .unwrap_or(&[])
-            .iter()
-            .filter_map(|weak| weak.upgrade())
-            .filter(|rc| rc.borrow().state)
-            .count() + if cell.borrow().state { 1 } else { 0 };
-        println!("Score: {}", score);
-        next.push(score == 2 || (score == 1 && cell.borrow().state));
+    for i in 0..10 {
+        let mut next = vec![];
+        for cell in &world {
+            let score = cell
+                .borrow()
+                .neighbors
+                .as_deref()
+                .unwrap_or(&[])
+                .iter()
+                .filter_map(|weak| weak.upgrade())
+                .filter(|rc| rc.borrow().state)
+                .count() + if cell.borrow().state { 1 } else { 0 };
+            println!("Score: {}", score);
+            next.push(score == 2 || (score == 1 && cell.borrow().state));
+        }
+
+        for i in 0..world.len() {
+            let mut cell = world[i].borrow_mut();
+            cell.state = next[i];
+        }
     }
 
-    for i in 0..world.len() {
-        let mut cell = world[i].borrow_mut();
-        cell.state = next[i];
-    }
 
     println!("Hello, world!");
 }
