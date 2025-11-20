@@ -26,7 +26,7 @@ fn main() {
         ]);
     }
 
-    for i in 0..10 {
+    while world.iter().any(|cell| cell.borrow().state) {
         let mut next = vec![];
         for cell in &world {
             let score = cell
