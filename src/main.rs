@@ -54,6 +54,5 @@ fn main() {
         println!("{}", world.iter().map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>());
     }
 
-
-    println!("Hello, world!");
+    println!("simulation ended!");
 }
