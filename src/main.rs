@@ -1,6 +1,8 @@
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
+use rand::prelude::*;
+
 struct Cell {
     state: bool,
     neighbors: Option<Vec<Weak<RefCell<Cell>>>>,
@@ -8,9 +10,11 @@ struct Cell {
 
 fn main() {
     let mut world = vec![];
+    let mut rng = rand::rng();
+
     for _ in 0..10 {
         let cell = Cell {
-            state: false,
+            state: rng.random(),
             neighbors: None,
         };
         world.push(Rc::new(RefCell::new(cell)));
