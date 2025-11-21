@@ -50,6 +50,8 @@ fn main() {
             let mut cell = world[i].borrow_mut();
             cell.state = next[i];
         }
+
+        println!("{}", world.iter().map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>());
     }
 
 
