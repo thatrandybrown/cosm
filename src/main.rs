@@ -53,6 +53,9 @@ fn main() {
             cell.state = next[i];
         }
 
+        let nh = world.iter().take(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
+        let sh = world.iter().skip(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
+
         print!("{}", world.iter().map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>());
         print!("\r");
         io::stdout().flush().unwrap();
