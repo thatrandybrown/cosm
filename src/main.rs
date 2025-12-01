@@ -53,6 +53,8 @@ fn main() {
         }
 
         println!("{}", world.iter().map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>());
+
+        thread::sleep(Duration::from_millis(500));
     }
 
     println!("simulation ended!");
