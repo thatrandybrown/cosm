@@ -2,6 +2,8 @@ use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
 use rand::prelude::*;
+use std::thread;
+use std::time::Duration;
 
 struct Cell {
     state: bool,
