@@ -1,4 +1,5 @@
 use std::cell::RefCell;
+use std::io::{self, Write};
 use std::rc::{Rc, Weak};
 
 use rand::prelude::*;
@@ -52,8 +53,9 @@ fn main() {
             cell.state = next[i];
         }
 
-        println!("{}", world.iter().map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>());
-
+        print!("{}", world.iter().map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>());
+        print!("\r");
+        io::stdout().flush().unwrap();
         thread::sleep(Duration::from_millis(500));
     }
 
