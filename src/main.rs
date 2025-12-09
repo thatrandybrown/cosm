@@ -61,6 +61,11 @@ fn main() {
             .map(|s| if s { '▲' } else { ' ' })
             .collect::<String>();
 
+        let row3 = sh_raw
+            .clone()
+            .map(|s| if s { '▼' } else { ' ' })
+            .collect::<String>();
+
         let nh = world.iter().take(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
         let sh = world.iter().skip(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
 
