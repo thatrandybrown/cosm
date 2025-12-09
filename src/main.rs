@@ -67,6 +67,9 @@ fn main() {
         let nh = world.iter().take(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
         let sh = world.iter().skip(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
 
+        println!("{}", row1.collect::<String>());
+        print!("{}", row3.collect::<String>());
+
         println!("{}", nh);
         print!("{}", sh);
 
