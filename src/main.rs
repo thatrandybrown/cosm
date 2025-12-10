@@ -80,7 +80,7 @@ fn main() {
 
     println!("simulation ended!");
 
-    println!("▲ ▲ ▲ ▲ ▲");
-    println!("▼▲▼▲▼▲▼▲▼▲");
-    println!(" ▼ ▼ ▼ ▼ ▼");
+    println!(" ▲ ▲ ▲ ▲ ▲");
+    println!("▲▼▲▼▲▼▲▼▲▼");
+    println!("▼ ▼ ▼ ▼ ▼");
 }
