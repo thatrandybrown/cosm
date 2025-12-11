@@ -81,9 +81,9 @@ fn main() {
         thread::sleep(Duration::from_millis(500));
     }
 
-    println!("simulation ended!");
+    // println!("simulation ended!");
 
-    println!(" ▲ ▲ ▲ ▲ ▲");
-    println!("▲▼▲▼▲▼▲▼▲▼");
-    println!("▼ ▼ ▼ ▼ ▼");
+    // println!(" ▲ ▲ ▲ ▲ ▲");
+    // println!("▲▼▲▼▲▼▲▼▲▼");
+    // println!("▼ ▼ ▼ ▼ ▼");
 }
