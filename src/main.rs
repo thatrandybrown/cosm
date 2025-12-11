@@ -75,10 +75,7 @@ fn main() {
         println!("{}", row2.collect::<String>());
         print!("{}", row3.map(|c| format!("{} ", c)).collect::<String>());
 
-        println!("{}", nh);
-        print!("{}", sh);
-
-        print!("\x1B[1A\r");
+        print!("\x1B[2A\r");
         io::stdout().flush().unwrap();
         thread::sleep(Duration::from_millis(500));
     }
