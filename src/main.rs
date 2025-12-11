@@ -26,11 +26,12 @@ fn main() {
     for i in 0..world.len() {
         let mut cell = world[i].borrow_mut();
         cell.neighbors = Some(vec![
-            Rc::downgrade(&world[(i + 1) % world.len()]),
-            Rc::downgrade(&world[(i + 2) % world.len()]),
-            Rc::downgrade(&world[(i + world.len() - 1) % world.len()]),
-            Rc::downgrade(&world[(i + world.len() - 2) % world.len()]),
+            Rc::downgrade(&world[if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }]),
+            Rc::downgrade(&world[if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }]),
+            Rc::downgrade(&world[(i + 5) % world.len()]),
+            Rc::downgrade(&world[if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 }]),
         ]);
+        println!("cell neighbors indices for {:?}: {:?} {:?} {:?} {:?}", i, if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }, if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }, (i + 5) % world.len(), if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 });
     }
 
     while world.iter().any(|cell| cell.borrow().state) {
