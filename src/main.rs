@@ -31,7 +31,6 @@ fn main() {
             Rc::downgrade(&world[(i + 5) % world.len()]),
             Rc::downgrade(&world[if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 }]),
         ]);
-        println!("cell neighbors indices for {:?}: {:?} {:?} {:?} {:?}", i, if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }, if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }, (i + 5) % world.len(), if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 });
     }
 
     while world.iter().any(|cell| cell.borrow().state) {
