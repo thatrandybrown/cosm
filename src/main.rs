@@ -68,9 +68,6 @@ fn main() {
             .zip(nh_raw.map(|s| if s { '▼' } else { '▽' }))
             .flat_map(|(a, b)| [a, b]);
 
-        let nh = world.iter().take(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
-        let sh = world.iter().skip(5).map(|c| if c.borrow().state { '█' } else { ' ' }).collect::<String>();
-
         println!("{}", row1.map(|c| format!(" {}", c)).collect::<String>());
         println!("{}", row2.collect::<String>());
         print!("{}", row3.map(|c| format!("{} ", c)).collect::<String>());
