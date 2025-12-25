@@ -80,10 +80,4 @@ fn main() {
         io::stdout().flush().unwrap();
         thread::sleep(Duration::from_millis(500));
     }
-
-    // println!("simulation ended!");
-
-    // println!(" ▲ ▲ ▲ ▲ ▲");
-    // println!("▲▼▲▼▲▼▲▼▲▼");
-    // println!("▼ ▼ ▼ ▼ ▼");
 }
