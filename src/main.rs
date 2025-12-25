@@ -45,7 +45,11 @@ fn main() {
                 .filter_map(|weak| weak.upgrade())
                 .filter(|rc| rc.borrow().state)
                 .count() + if cell.borrow().state { 1 } else { 0 };
-            next.push(score == 3 || (score == 2 && cell.borrow().state));
+            // next.push(score == 3 || (score == 2 && cell.borrow().state));
+            next.push(Rc::new(RefCell::new(Cell {
+                state: score == 3 || (score == 2 && cell.borrow().state),
+                neighbors: cell.borrow().neighbors.clone(),
+            })));
         }
 
         for i in 0..world.len() {
