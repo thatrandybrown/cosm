@@ -45,7 +45,6 @@ fn main() {
                 .filter_map(|weak| weak.upgrade())
                 .filter(|rc| rc.borrow().state)
                 .count() + if cell.borrow().state { 1 } else { 0 };
-            // next.push(score == 3 || (score == 2 && cell.borrow().state));
             next.push(Rc::new(RefCell::new(Cell {
                 state: score == 3 || (score == 2 && cell.borrow().state),
                 neighbors: cell.borrow().neighbors.clone(),
@@ -53,11 +52,6 @@ fn main() {
         }
 
         world = next;
-
-        // for i in 0..world.len() {
-        //     let mut cell = world[i].borrow_mut();
-        //     cell.state = next[i];
-        // }
 
         let nh_raw = world.iter().take(5).map(|c| c.borrow().state);
         let sh_raw = world.iter().skip(5).map(|c| c.borrow().state);
