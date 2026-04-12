@@ -11,6 +11,10 @@ struct Cell {
     neighbors: Option<Vec<Weak<RefCell<Cell>>>>,
 }
 
+struct World {
+    cells: Vec<Rc<RefCell<Cell>>>,
+}
+
 fn main() {
     let mut world = vec![];
     let mut rng = rand::rng();
