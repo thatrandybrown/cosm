@@ -15,6 +15,19 @@ struct World {
     cells: Vec<Rc<RefCell<Cell>>>,
 }
 
+impl World {
+    fn new() -> Self {
+        let mut cells = Vec::new();
+        for _ in 0..10 {
+            cells.push(Rc::new(RefCell::new(Cell {
+                state: rand::random(),
+                neighbors: None,
+            })));
+        }
+        World { cells }
+    }
+}
+
 fn main() {
     let mut world = vec![];
     let mut rng = rand::rng();
