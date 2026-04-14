@@ -24,6 +24,17 @@ impl World {
                 neighbors: None,
             })));
         }
+
+        for i in 0..cells.len() {
+            let mut cell = cells[i].borrow_mut();
+            cell.neighbors = Some(vec![
+                Rc::downgrade(&cells[if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }]),
+                Rc::downgrade(&cells[if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }]),
+                Rc::downgrade(&cells[(i + 5) % cells.len()]),
+                Rc::downgrade(&cells[if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 }]),
+            ]);
+        }
+
         World { cells }
     }
 }
