@@ -37,6 +37,28 @@ impl World {
 
         World { cells }
     }
+
+    fn next(&mut self) -> World {
+        let mut cells = Vec::new();
+
+        for cell in &self.cells {
+            let score = cell
+                .borrow()
+                .neighbors
+                .as_deref()
+                .unwrap_or(&[])
+                .iter()
+                .filter_map(|weak| weak.upgrade())
+                .filter(|rc| rc.borrow().state)
+                .count() + if cell.borrow().state { 1 } else { 0 };
+            cells.push(Rc::new(RefCell::new(Cell {
+                state: score == 3 || (score == 2 && cell.borrow().state),
+                neighbors: cell.borrow().neighbors.clone(),
+            })));
+        }
+
+        World { cells }
+    }
 }
 
 fn main() {
