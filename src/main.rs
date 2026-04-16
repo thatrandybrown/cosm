@@ -62,49 +62,15 @@ impl World {
 }
 
 fn main() {
-    let mut world = vec![];
-    let mut rng = rand::rng();
+    let mut world = World::new();
+    // let mut rng = rand::rng();
 
-    for _ in 0..10 {
-        let cell = Cell {
-            state: rng.random(),
-            neighbors: None,
-        };
-        world.push(Rc::new(RefCell::new(cell)));
-    }
+    while world.cells.iter().any(|cell| cell.borrow().state) {
 
-    for i in 0..world.len() {
-        let mut cell = world[i].borrow_mut();
-        cell.neighbors = Some(vec![
-            Rc::downgrade(&world[if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }]),
-            Rc::downgrade(&world[if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }]),
-            Rc::downgrade(&world[(i + 5) % world.len()]),
-            Rc::downgrade(&world[if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 }]),
-        ]);
-    }
+        world = world.next();
 
-    while world.iter().any(|cell| cell.borrow().state) {
-        let mut next = vec![];
-        for cell in &world {
-            let score = cell
-                .borrow()
-                .neighbors
-                .as_deref()
-                .unwrap_or(&[])
-                .iter()
-                .filter_map(|weak| weak.upgrade())
-                .filter(|rc| rc.borrow().state)
-                .count() + if cell.borrow().state { 1 } else { 0 };
-            next.push(Rc::new(RefCell::new(Cell {
-                state: score == 3 || (score == 2 && cell.borrow().state),
-                neighbors: cell.borrow().neighbors.clone(),
-            })));
-        }
-
-        world = next;
-
-        let nh_raw = world.iter().take(5).map(|c| c.borrow().state);
-        let sh_raw = world.iter().skip(5).map(|c| c.borrow().state);
+        let nh_raw = world.cells.iter().take(5).map(|c| c.borrow().state);
+        let sh_raw = world.cells.iter().skip(5).map(|c| c.borrow().state);
 
         let row1 = nh_raw
             .clone()
