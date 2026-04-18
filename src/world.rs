@@ -59,4 +59,8 @@ impl World {
 
         World { cells }
     }
+
+    pub fn cells(&self) -> Vec<bool> {
+        self.cells.iter().map(|cell| cell.borrow().state).collect()
+    }
 }
