@@ -11,12 +11,12 @@ struct Cell {
     neighbors: Option<Vec<Weak<RefCell<Cell>>>>,
 }
 
-struct World {
+pub struct World {
     cells: Vec<Rc<RefCell<Cell>>>,
 }
 
 impl World {
-    fn new() -> Self {
+    pub fn new() -> Self {
         let mut cells = Vec::new();
         for _ in 0..10 {
             cells.push(Rc::new(RefCell::new(Cell {
@@ -38,7 +38,7 @@ impl World {
         World { cells }
     }
 
-    fn next(&mut self) -> World {
+    pub fn next(&mut self) -> World {
         let mut cells = Vec::new();
 
         for cell in &self.cells {
