@@ -1,3 +1,5 @@
+mod world;
+
 use std::cell::RefCell;
 use std::io::{self, Write};
 use std::rc::{Rc, Weak};
@@ -6,71 +8,20 @@ use rand::prelude::*;
 use std::thread;
 use std::time::Duration;
 
-struct Cell {
-    state: bool,
-    neighbors: Option<Vec<Weak<RefCell<Cell>>>>,
-}
+use world::{World};
 
-struct World {
-    cells: Vec<Rc<RefCell<Cell>>>,
-}
-
-impl World {
-    fn new() -> Self {
-        let mut cells = Vec::new();
-        for _ in 0..10 {
-            cells.push(Rc::new(RefCell::new(Cell {
-                state: rand::random(),
-                neighbors: None,
-            })));
-        }
-
-        for i in 0..cells.len() {
-            let mut cell = cells[i].borrow_mut();
-            cell.neighbors = Some(vec![
-                Rc::downgrade(&cells[if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }]),
-                Rc::downgrade(&cells[if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }]),
-                Rc::downgrade(&cells[(i + 5) % cells.len()]),
-                Rc::downgrade(&cells[if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 }]),
-            ]);
-        }
-
-        World { cells }
-    }
-
-    fn next(&mut self) -> World {
-        let mut cells = Vec::new();
-
-        for cell in &self.cells {
-            let score = cell
-                .borrow()
-                .neighbors
-                .as_deref()
-                .unwrap_or(&[])
-                .iter()
-                .filter_map(|weak| weak.upgrade())
-                .filter(|rc| rc.borrow().state)
-                .count() + if cell.borrow().state { 1 } else { 0 };
-            cells.push(Rc::new(RefCell::new(Cell {
-                state: score == 3 || (score == 2 && cell.borrow().state),
-                neighbors: cell.borrow().neighbors.clone(),
-            })));
-        }
-
-        World { cells }
-    }
-}
 
 fn main() {
     let mut world = World::new();
     // let mut rng = rand::rng();
 
-    while world.cells.iter().any(|cell| cell.borrow().state) {
+    while world.cells().iter().any(|&cell| cell) {
 
         world = world.next();
 
-        let nh_raw = world.cells.iter().take(5).map(|c| c.borrow().state);
-        let sh_raw = world.cells.iter().skip(5).map(|c| c.borrow().state);
+        let cells = world.cells();
+        let nh_raw = cells.iter().take(5).cloned();
+        let sh_raw = cells.iter().skip(5).cloned();
 
         let row1 = nh_raw
             .clone()
