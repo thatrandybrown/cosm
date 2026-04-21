@@ -28,10 +28,28 @@ impl World {
         for i in 0..cells.len() {
             let mut cell = cells[i].borrow_mut();
             cell.neighbors = Some(vec![
-                Rc::downgrade(&cells[if i < 5 { (i + 1) % 5 } else { 5 + (i - 5 + 1) % 5 }]),
-                Rc::downgrade(&cells[if i < 5 { (i + 4) % 5 } else { 5 + (i - 5 + 4) % 5 }]),
+                Rc::downgrade(
+                    &cells[if i < 5 {
+                        (i + 1) % 5
+                    } else {
+                        5 + (i - 5 + 1) % 5
+                    }],
+                ),
+                Rc::downgrade(
+                    &cells[if i < 5 {
+                        (i + 4) % 5
+                    } else {
+                        5 + (i - 5 + 4) % 5
+                    }],
+                ),
                 Rc::downgrade(&cells[(i + 5) % cells.len()]),
-                Rc::downgrade(&cells[if i < 5 { 5 + (i + 1) % 5 } else { (i - 5 + 4) % 5 }]),
+                Rc::downgrade(
+                    &cells[if i < 5 {
+                        5 + (i + 1) % 5
+                    } else {
+                        (i - 5 + 4) % 5
+                    }],
+                ),
             ]);
         }
 
@@ -50,7 +68,8 @@ impl World {
                 .iter()
                 .filter_map(|weak| weak.upgrade())
                 .filter(|rc| rc.borrow().state)
-                .count() + if cell.borrow().state { 1 } else { 0 };
+                .count()
+                + if cell.borrow().state { 1 } else { 0 };
             cells.push(Rc::new(RefCell::new(Cell {
                 state: score == 3 || (score == 2 && cell.borrow().state),
                 neighbors: cell.borrow().neighbors.clone(),
