@@ -16,11 +16,11 @@ pub struct World {
 }
 
 impl World {
-    pub fn new() -> Self {
+    pub fn new(initial_states: Option<[bool; 10]>) -> Self {
         let mut cells = Vec::new();
-        for _ in 0..10 {
+        for i in 0..10 {
             cells.push(Rc::new(RefCell::new(Cell {
-                state: rand::random(),
+                state: initial_states.map_or(rand::random(), |states| states[i]),
                 neighbors: None,
             })));
         }
