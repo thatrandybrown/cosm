@@ -11,7 +11,10 @@ use std::time::Duration;
 use world::World;
 
 fn main() {
-    let mut world = World::new();
+    let mut world = World::new(Some([
+        true, false, false, false, false, true, false, false, false, false,
+    ]));
+    // let mut world = World::new();
     // let mut rng = rand::rng();
 
     while world.cells().iter().any(|&cell| cell) {
