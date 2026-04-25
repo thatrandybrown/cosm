@@ -18,14 +18,11 @@ fn main() {
     // let mut rng = rand::rng();
 
     while world.cells().iter().any(|&cell| cell) {
-        world = world.next();
-
         let cells = world.cells();
         let nh_raw = cells.iter().take(5).cloned();
         let sh_raw = cells.iter().skip(5).cloned();
 
         let row1 = nh_raw.clone().map(|s| if s { '▲' } else { '△' });
-
         let row3 = sh_raw.clone().map(|s| if s { '▼' } else { '▽' });
 
         let row2 = sh_raw
@@ -41,5 +38,7 @@ fn main() {
         print!("\x1B[2A\r");
         io::stdout().flush().unwrap();
         thread::sleep(Duration::from_millis(500));
+
+        world = world.next();
     }
 }
