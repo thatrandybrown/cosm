@@ -29,9 +29,9 @@ fn main() {
             .zip(nh_raw.map(|s| if s { '▼' } else { '▽' }))
             .flat_map(|(a, b)| [a, b]);
 
-        println!("{}", row1.map(|c| format!(" {}", c)).collect::<String>());
-        println!("{}", row2.collect::<String>());
-        print!("{}", row3.map(|c| format!("{} ", c)).collect::<String>());
+        // println!("{}", row1.map(|c| format!(" {}", c)).collect::<String>());
+        // println!("{}", row2.collect::<String>());
+        // print!("{}", row3.map(|c| format!("{} ", c)).collect::<String>());
 
         print!("\x1B[2A\r");
         io::stdout().flush().unwrap();
