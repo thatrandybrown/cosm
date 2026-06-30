@@ -68,15 +68,17 @@ impl World {
                 .iter()
                 .filter_map(|weak| weak.upgrade())
                 .filter(|rc| rc.borrow().state)
-                .count()
-                + if cell.borrow().state { 1 } else { 0 };
-            cells.push(Rc::new(RefCell::new(Cell {
-                state: score == 3 || (score == 2 && cell.borrow().state),
-                neighbors: cell.borrow().neighbors.clone(),
-            })));
+                .count();
+                // + if cell.borrow().state { 1 } else { 0 };
+            println!("Cell state: {}, Score: {}", cell.borrow().state, score);
+            // thread::sleep(Duration::from_millis(500));
+            cells.push(match score {
+                0 => false,
+                _ => true,
+            });
         }
 
-        World { cells }
+        World::new(Some(cells.try_into().unwrap_or_else(|v: Vec<bool>| panic!("Expected a Vec of length 10, got {}", v.len()))))
     }
 
     pub fn cells(&self) -> Vec<bool> {
