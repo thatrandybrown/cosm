@@ -73,7 +73,7 @@ impl World {
             println!("Cell state: {}, Score: {}", cell.borrow().state, score);
             // thread::sleep(Duration::from_millis(500));
             cells.push(match score {
-                0 => false,
+                0 | 1 => false,
                 _ => true,
             });
         }
