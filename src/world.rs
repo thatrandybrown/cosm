@@ -70,8 +70,6 @@ impl World {
                 .filter(|rc| rc.borrow().state)
                 .count();
                 // + if cell.borrow().state { 1 } else { 0 };
-            println!("Cell state: {}, Score: {}", cell.borrow().state, score);
-            // thread::sleep(Duration::from_millis(500));
             cells.push(match score {
                 0 | 1 => false,
                 _ => true,
