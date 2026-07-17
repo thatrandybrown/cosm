@@ -1,10 +1,5 @@
 use std::cell::RefCell;
-use std::io::{self, Write};
 use std::rc::{Rc, Weak};
-
-use rand::prelude::*;
-use std::thread;
-use std::time::Duration;
 
 struct Cell {
     state: bool,
