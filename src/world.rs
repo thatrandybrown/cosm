@@ -63,8 +63,8 @@ impl World {
                 .iter()
                 .filter_map(|weak| weak.upgrade())
                 .filter(|rc| rc.borrow().state)
-                .count();
-                // + if cell.borrow().state { 1 } else { 0 };
+                .count()
+                + if cell.borrow().state { 1 } else { 0 };
             cells.push(match score {
                 0 | 1 | 4 => false,
                 _ => true,
