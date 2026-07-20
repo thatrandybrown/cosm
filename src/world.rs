@@ -66,8 +66,8 @@ impl World {
                 .count()
                 + if cell.borrow().state { 1 } else { 0 };
             cells.push(match score {
-                0 | 1 | 4 => false,
-                _ => true,
+                2 | 3 => true,
+                _ => false
             });
         }
 
