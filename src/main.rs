@@ -8,9 +8,8 @@ use std::time::Duration;
 use world::World;
 
 fn main() {
-    let mut world = World::new(Some([
-        true, false, false, false, false, true, false, false, false, false,
-    ]));
+    // let mut world = World::new(None);
+    let mut world = World::new(Some([false, true, false, true, false, false, false, true, false, true]));
 
     while world.cells().iter().any(|&cell| cell) {
         let cells = world.cells();
